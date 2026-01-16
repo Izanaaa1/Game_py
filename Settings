@@ -1,0 +1,22 @@
+class Settings():
+    """КЛасс для хранения настроек игры"""
+    def __init__(self):
+        # настройки корабля
+        self.screen_width = 1600
+        self.screen_height = 1000
+        self.bg_color = (0, 59, 89)
+        self.speed_ship = 5
+        self.ship_limit = 2
+        
+
+        # параметры снаряда
+        self.speed_bullet = 10
+        self.bullet_width = 5
+        self.bullet_height = 20
+        self.bullet_color = (255, 0, 0)
+        self.bullets_alliwer = 3
+
+        self.alien_speed = 1.0
+        self.fleet_drop_speed = 10
+        # fleet_direction = 1 обозначает движение вправо; а -1 - влево
+        self.fleet_direction = 1
