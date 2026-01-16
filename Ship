@@ -1,0 +1,58 @@
+import pygame
+
+class Ship():
+    def __init__(self, ai_game):
+        """Инициализирует корабль и задает его начальное положение"""
+        self.screen = ai_game.screen
+        self.settings = ai_game.settings
+        self.screen_rect = ai_game.screen.get_rect()
+        self.clock = pygame.time.Clock()
+
+        # Загружаем изображение корабля и получает прямоугольник
+        self.image = [
+            pygame.image.load("foto/ruy.png").convert_alpha(),
+            pygame.image.load("foto/ruy2.png").convert_alpha(),
+            pygame.image.load("foto/ruy3.png").convert_alpha(),
+            pygame.image.load("foto/ruy4.png").convert_alpha(),
+        ]
+        self.player_amin_count = 0
+        self.rect = self.image[self.player_amin_count].get_rect()
+        # Каждый новый корабль  появляется у нижнего края
+        self.rect.midbottom = self.screen_rect.midbottom
+
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
+
+        self.moving_right  = False
+        self.moving_left = False
+        self.moving_forward = False
+        self.moving_down = False
+        
+    def update(self):
+
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.x += self.settings.speed_ship
+        if self.moving_left and self.rect.left > 0:
+            self.x -= self.settings.speed_ship
+        if self.moving_forward and self.rect.top > self.screen_rect.top:
+             self.y -= self.settings.speed_ship
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+             self.y += self.settings.speed_ship
+        #Изменение позиции корабля в x и сохранение его в rect.x
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+    def center_ship(self):
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+        self.player_amin_count = 0
+    def blitme(self):
+            """Рисует корабль и текущую позицию"""
+            self.screen.blit(self.image[self.player_amin_count], self.rect)
+            
+            if self.player_amin_count == 3:
+                self.player_amin_count = 0
+            else:
+                self.player_amin_count += 1
+            self.clock.tick(60)
+            
